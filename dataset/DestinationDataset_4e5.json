@@ -1,0 +1,28 @@
+{
+	"name": "DestinationDataset_4e5",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "giuseppeluparibda2025lab5-WorkspaceDefaultStorage",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"cw_fileName": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().cw_fileName",
+					"type": "Expression"
+				},
+				"folderPath": "weather",
+				"fileSystem": "bronze"
+			}
+		},
+		"schema": {}
+	}
+}
