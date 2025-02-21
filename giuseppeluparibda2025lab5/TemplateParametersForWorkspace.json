@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"workspaceName": {
+			"value": "giuseppeluparibda2025lab5"
+		},
+		"giuseppeluparibda2025lab5-WorkspaceDefaultSqlServer_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:giuseppeluparibda2025lab5.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
+		},
+		"giuseppeluparibda2025lab5-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"value": "https://giuseppelupari2025lab5.dfs.core.windows.net"
+		}
+	}
+}
