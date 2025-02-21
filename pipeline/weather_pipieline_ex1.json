@@ -1,0 +1,308 @@
+{
+	"name": "weather_pipieline_ex1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_aae",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "https://api.weather.gov/gridpoints/OKX/36,36/forecast/hourly"
+					},
+					{
+						"name": "Destination",
+						"value": "bronze/weather/"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "RestSource",
+						"httpRequestTimeout": "00:01:40",
+						"requestInterval": "00.00:00:00.010",
+						"requestMethod": "GET"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"validateDataConsistency": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['@context'][0]"
+								},
+								"sink": {
+									"name": "@@context']["
+								}
+							},
+							{
+								"source": {
+									"path": "$['type']"
+								},
+								"sink": {
+									"name": "type"
+								}
+							},
+							{
+								"source": {
+									"path": "$['geometry']['type']"
+								},
+								"sink": {
+									"name": "geometry_type"
+								}
+							},
+							{
+								"source": {
+									"path": "$['geometry']['coordinates'][0][0][0]"
+								},
+								"sink": {
+									"name": "geometry_coordinates'][0][0]["
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['units']"
+								},
+								"sink": {
+									"name": "units"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['forecastGenerator']"
+								},
+								"sink": {
+									"name": "forecastGenerator"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['generatedAt']"
+								},
+								"sink": {
+									"name": "generatedAt"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['updateTime']"
+								},
+								"sink": {
+									"name": "updateTime"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['validTimes']"
+								},
+								"sink": {
+									"name": "validTimes"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['elevation']['unitCode']"
+								},
+								"sink": {
+									"name": "properties_elevation_unitCode"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['elevation']['value']"
+								},
+								"sink": {
+									"name": "properties_elevation_value"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['periods'][0]['number']"
+								},
+								"sink": {
+									"name": "number"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['periods'][0]['name']"
+								},
+								"sink": {
+									"name": "name"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['periods'][0]['startTime']"
+								},
+								"sink": {
+									"name": "startTime"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['periods'][0]['endTime']"
+								},
+								"sink": {
+									"name": "endTime"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['periods'][0]['isDaytime']"
+								},
+								"sink": {
+									"name": "isDaytime"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['periods'][0]['temperature']"
+								},
+								"sink": {
+									"name": "temperature"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['periods'][0]['temperatureUnit']"
+								},
+								"sink": {
+									"name": "temperatureUnit"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['periods'][0]['temperatureTrend']"
+								},
+								"sink": {
+									"name": "temperatureTrend"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['periods'][0]['probabilityOfPrecipitation']['unitCode']"
+								},
+								"sink": {
+									"name": "properties_periods'][0]['probabilityOfPrecipitation_unitCode"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['periods'][0]['probabilityOfPrecipitation']['value']"
+								},
+								"sink": {
+									"name": "properties_periods'][0]['probabilityOfPrecipitation_value"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['periods'][0]['dewpoint']['unitCode']"
+								},
+								"sink": {
+									"name": "properties_periods'][0]['dewpoint_unitCode"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['periods'][0]['dewpoint']['value']"
+								},
+								"sink": {
+									"name": "properties_periods'][0]['dewpoint_value"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['periods'][0]['relativeHumidity']['unitCode']"
+								},
+								"sink": {
+									"name": "properties_periods'][0]['relativeHumidity_unitCode"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['periods'][0]['relativeHumidity']['value']"
+								},
+								"sink": {
+									"name": "properties_periods'][0]['relativeHumidity_value"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['periods'][0]['windSpeed']"
+								},
+								"sink": {
+									"name": "windSpeed"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['periods'][0]['windDirection']"
+								},
+								"sink": {
+									"name": "windDirection"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['periods'][0]['icon']"
+								},
+								"sink": {
+									"name": "icon"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['periods'][0]['shortForecast']"
+								},
+								"sink": {
+									"name": "shortForecast"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['periods'][0]['detailedForecast']"
+								},
+								"sink": {
+									"name": "detailedForecast"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset_aae",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DestinationDataset_aae",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}
