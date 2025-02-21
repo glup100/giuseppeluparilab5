@@ -37,7 +37,253 @@
 							"fileExtension": ".txt"
 						}
 					},
-					"enableStaging": false
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['@context'][0]"
+								},
+								"sink": {
+									"name": "@@context']["
+								}
+							},
+							{
+								"source": {
+									"path": "$['type']"
+								},
+								"sink": {
+									"name": "type"
+								}
+							},
+							{
+								"source": {
+									"path": "$['geometry']['type']"
+								},
+								"sink": {
+									"name": "geometry_type"
+								}
+							},
+							{
+								"source": {
+									"path": "$['geometry']['coordinates'][0][0][0]"
+								},
+								"sink": {
+									"name": "geometry_coordinates'][0][0]["
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['units']"
+								},
+								"sink": {
+									"name": "units"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['forecastGenerator']"
+								},
+								"sink": {
+									"name": "forecastGenerator"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['generatedAt']"
+								},
+								"sink": {
+									"name": "generatedAt"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['updateTime']"
+								},
+								"sink": {
+									"name": "updateTime"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['validTimes']"
+								},
+								"sink": {
+									"name": "validTimes"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['elevation']['unitCode']"
+								},
+								"sink": {
+									"name": "properties_elevation_unitCode"
+								}
+							},
+							{
+								"source": {
+									"path": "$['properties']['elevation']['value']"
+								},
+								"sink": {
+									"name": "properties_elevation_value"
+								}
+							},
+							{
+								"source": {
+									"path": "['number']"
+								},
+								"sink": {
+									"name": "number"
+								}
+							},
+							{
+								"source": {
+									"path": "['name']"
+								},
+								"sink": {
+									"name": "name"
+								}
+							},
+							{
+								"source": {
+									"path": "['startTime']"
+								},
+								"sink": {
+									"name": "startTime"
+								}
+							},
+							{
+								"source": {
+									"path": "['endTime']"
+								},
+								"sink": {
+									"name": "endTime"
+								}
+							},
+							{
+								"source": {
+									"path": "['isDaytime']"
+								},
+								"sink": {
+									"name": "isDaytime"
+								}
+							},
+							{
+								"source": {
+									"path": "['temperature']"
+								},
+								"sink": {
+									"name": "temperature"
+								}
+							},
+							{
+								"source": {
+									"path": "['temperatureUnit']"
+								},
+								"sink": {
+									"name": "temperatureUnit"
+								}
+							},
+							{
+								"source": {
+									"path": "['temperatureTrend']"
+								},
+								"sink": {
+									"name": "temperatureTrend"
+								}
+							},
+							{
+								"source": {
+									"path": "['probabilityOfPrecipitation']['unitCode']"
+								},
+								"sink": {
+									"name": "properties_periods'][0]['probabilityOfPrecipitation_unitCode"
+								}
+							},
+							{
+								"source": {
+									"path": "['probabilityOfPrecipitation']['value']"
+								},
+								"sink": {
+									"name": "properties_periods'][0]['probabilityOfPrecipitation_value"
+								}
+							},
+							{
+								"source": {
+									"path": "['dewpoint']['unitCode']"
+								},
+								"sink": {
+									"name": "properties_periods'][0]['dewpoint_unitCode"
+								}
+							},
+							{
+								"source": {
+									"path": "['dewpoint']['value']"
+								},
+								"sink": {
+									"name": "properties_periods'][0]['dewpoint_value"
+								}
+							},
+							{
+								"source": {
+									"path": "['relativeHumidity']['unitCode']"
+								},
+								"sink": {
+									"name": "properties_periods'][0]['relativeHumidity_unitCode"
+								}
+							},
+							{
+								"source": {
+									"path": "['relativeHumidity']['value']"
+								},
+								"sink": {
+									"name": "properties_periods'][0]['relativeHumidity_value"
+								}
+							},
+							{
+								"source": {
+									"path": "['windSpeed']"
+								},
+								"sink": {
+									"name": "windSpeed"
+								}
+							},
+							{
+								"source": {
+									"path": "['windDirection']"
+								},
+								"sink": {
+									"name": "windDirection"
+								}
+							},
+							{
+								"source": {
+									"path": "['icon']"
+								},
+								"sink": {
+									"name": "icon"
+								}
+							},
+							{
+								"source": {
+									"path": "['shortForecast']"
+								},
+								"sink": {
+									"name": "shortForecast"
+								}
+							},
+							{
+								"source": {
+									"path": "['detailedForecast']"
+								},
+								"sink": {
+									"name": "detailedForecast"
+								}
+							}
+						],
+						"collectionReference": "$['properties']['periods']"
+					}
 				},
 				"inputs": [
 					{
