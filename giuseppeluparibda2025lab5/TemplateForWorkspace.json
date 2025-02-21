@@ -128,7 +128,7 @@
 					"location": {
 						"type": "AzureBlobFSLocation",
 						"fileName": {
-							"value": "@dataset().cw_fileName",
+							"value": "weatherData_@{formatDateTime(utcNow())}",
 							"type": "Expression"
 						},
 						"folderPath": "weather",
