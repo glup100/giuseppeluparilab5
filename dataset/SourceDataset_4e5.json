@@ -1,0 +1,15 @@
+{
+	"name": "SourceDataset_4e5",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "WeatherService",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": "https://api.weather.gov/gridpoints/OKX/36,36/forecast/hourly",
+			"requestMethod": "GET"
+		}
+	}
+}
