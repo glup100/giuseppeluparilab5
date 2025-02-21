@@ -13,6 +13,9 @@
 		},
 		"giuseppeluparibda2025lab5-WorkspaceDefaultStorage_properties_typeProperties_url": {
 			"value": "https://giuseppelupari2025lab5.dfs.core.windows.net"
+		},
+		"Trigger_4e5_properties_Weather_Pipeline_parameters_windowStart": {
+			"value": "@trigger().scheduledTime"
 		}
 	}
 }
