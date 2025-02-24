@@ -37,7 +37,10 @@
 				"inputs": [
 					{
 						"referenceName": "Xml1",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"DBName": "lab6SQLpool"
+						}
 					}
 				],
 				"outputs": [
