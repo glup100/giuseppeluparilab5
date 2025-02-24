@@ -465,7 +465,9 @@
 							},
 							"sink": {
 								"type": "SqlDWSink",
-								"writeBehavior": "Insert"
+								"writeBehavior": "Insert",
+								"tableOption": "autoCreate",
+								"disableMetricsCollection": false
 							},
 							"enableStaging": false
 						},
@@ -482,7 +484,9 @@
 							{
 								"referenceName": "learnSQLpool",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"DBName": "lab6SQLpool"
+								}
 							}
 						]
 					}
@@ -1233,6 +1237,26 @@
 			"properties": {
 				"type": "ManagedIdentity",
 				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/SQL script 1')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "SELECT s.name AS schema_name\nFROM sys.schemas s\nORDER BY s.name;\n\n\n",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "master",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
 			},
 			"dependsOn": []
 		},
