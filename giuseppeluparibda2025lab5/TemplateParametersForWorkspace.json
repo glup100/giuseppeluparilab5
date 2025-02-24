@@ -17,6 +17,12 @@
 		"giuseppeluparibda2025lab5-WorkspaceDefaultStorage_properties_typeProperties_url": {
 			"value": "https://giuseppelupari2025lab5.dfs.core.windows.net"
 		},
+		"newconnection_properties_typeProperties_server": {
+			"value": "giuseppeluparibda2025lab5.sql.azuresynapse.net"
+		},
+		"newconnection_properties_typeProperties_database": {
+			"value": "lab6SQLpool"
+		},
 		"sales_dataset_properties_typeProperties_url": {
 			"value": "https://mdsynapse4321.dfs.core.windows.net/"
 		},
