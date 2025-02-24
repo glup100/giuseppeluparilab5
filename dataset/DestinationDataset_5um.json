@@ -1,0 +1,16 @@
+{
+	"name": "DestinationDataset_5um",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "newconnection",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "customers"
+		}
+	}
+}
