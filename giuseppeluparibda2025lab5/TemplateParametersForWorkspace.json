@@ -14,6 +14,12 @@
 		"WeatherService_properties_typeProperties_url": {
 			"value": "https://api.weather.gov/"
 		},
+		"customerSQLpool_properties_typeProperties_server": {
+			"value": "giuseppeluparibda2025lab5.sql.azuresynapse.net"
+		},
+		"customerSQLpool_properties_typeProperties_database": {
+			"value": "lab6SQLpool"
+		},
 		"giuseppeluparibda2025lab5-WorkspaceDefaultStorage_properties_typeProperties_url": {
 			"value": "https://giuseppelupari2025lab5.dfs.core.windows.net"
 		},
