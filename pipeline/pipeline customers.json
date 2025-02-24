@@ -29,10 +29,10 @@
 						}
 					},
 					"sink": {
-						"type": "SqlDWSink",
+						"type": "SqlPoolSink",
 						"writeBehavior": "Insert",
-						"tableOption": "autoCreate",
-						"disableMetricsCollection": false
+						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate"
 					},
 					"enableStaging": false
 				},
@@ -44,7 +44,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "AzureSynapseAnalyticsTable1",
+						"referenceName": "SqlPoolTable1",
 						"type": "DatasetReference"
 					}
 				]
