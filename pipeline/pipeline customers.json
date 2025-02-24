@@ -39,19 +39,13 @@
 				"inputs": [
 					{
 						"referenceName": "Xml1",
-						"type": "DatasetReference",
-						"parameters": {
-							"DBName": "lab6SQLpool"
-						}
+						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "learnSQLpool",
-						"type": "DatasetReference",
-						"parameters": {
-							"DBName": "lab6SQLpool"
-						}
+						"referenceName": "AzureSynapseAnalyticsTable1",
+						"type": "DatasetReference"
 					}
 				]
 			}
