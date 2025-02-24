@@ -1,0 +1,120 @@
+{
+	"name": "CustomerPipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_5um",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "bronze/sales/customers.xml"
+					},
+					{
+						"name": "Destination",
+						"value": "dbo.customers"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "XmlSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "XmlReadSettings",
+							"validationMode": "none"
+						}
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"allowCopyCommand": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "sales_dataset",
+							"type": "LinkedServiceReference"
+						},
+						"path": "bronze/staging"
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "['id']"
+								}
+							},
+							{
+								"source": {
+									"path": "['person']['name']"
+								}
+							},
+							{
+								"source": {
+									"path": "['person']['lastname']"
+								}
+							},
+							{
+								"source": {
+									"path": "['person']['age']"
+								}
+							},
+							{
+								"source": {
+									"path": "['address']['country']"
+								}
+							},
+							{
+								"source": {
+									"path": "['address']['city']"
+								}
+							},
+							{
+								"source": {
+									"path": "['address']['postcode']"
+								}
+							},
+							{
+								"source": {
+									"path": "['address']['street']"
+								}
+							},
+							{
+								"source": {
+									"path": "['address']['building']"
+								}
+							}
+						],
+						"collectionReference": "$['customers']['customer']"
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset_5um",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DestinationDataset_5um",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}
