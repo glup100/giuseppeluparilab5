@@ -473,7 +473,9 @@
 							{
 								"referenceName": "Xml1",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"DBName": "lab6SQLpool"
+								}
 							}
 						],
 						"outputs": [
