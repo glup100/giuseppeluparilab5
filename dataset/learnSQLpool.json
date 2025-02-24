@@ -3,10 +3,7 @@
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "giuseppeluparibda2025lab5-WorkspaceDefaultSqlServer",
-			"type": "LinkedServiceReference",
-			"parameters": {
-				"DBName": "customers"
-			}
+			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
 		"type": "AzureSqlDWTable",
