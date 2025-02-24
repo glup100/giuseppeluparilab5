@@ -5,6 +5,12 @@
 			"referenceName": "sales_dataset",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"DBName": {
+				"type": "string",
+				"defaultValue": "lab6SQLpool"
+			}
+		},
 		"annotations": [],
 		"type": "Xml",
 		"typeProperties": {
