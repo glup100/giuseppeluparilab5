@@ -3,7 +3,16 @@
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "giuseppeluparibda2025lab5-WorkspaceDefaultSqlServer",
-			"type": "LinkedServiceReference"
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"DBName": "lab6SQLpool"
+			}
+		},
+		"parameters": {
+			"DBName": {
+				"type": "string",
+				"defaultValue": "lab6SQLpool"
+			}
 		},
 		"annotations": [],
 		"type": "AzureSqlDWTable",
