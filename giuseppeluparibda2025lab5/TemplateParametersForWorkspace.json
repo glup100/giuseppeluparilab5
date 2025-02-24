@@ -8,11 +8,17 @@
 		"giuseppeluparibda2025lab5-WorkspaceDefaultSqlServer_connectionString": {
 			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:giuseppeluparibda2025lab5.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
 		},
+		"sales_dataset_accountKey": {
+			"value": ""
+		},
 		"WeatherService_properties_typeProperties_url": {
 			"value": "https://api.weather.gov/"
 		},
 		"giuseppeluparibda2025lab5-WorkspaceDefaultStorage_properties_typeProperties_url": {
 			"value": "https://giuseppelupari2025lab5.dfs.core.windows.net"
+		},
+		"sales_dataset_properties_typeProperties_url": {
+			"value": "https://mdsynapse4321.dfs.core.windows.net/"
 		},
 		"Trigger_4e5_properties_Weather_Pipeline_parameters_windowStart": {
 			"value": "@trigger().scheduledTime"
