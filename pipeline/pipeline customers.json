@@ -29,12 +29,100 @@
 						}
 					},
 					"sink": {
-						"type": "SqlPoolSink",
+						"type": "SqlDWSink",
 						"writeBehavior": "Insert",
 						"sqlWriterUseTableLock": false,
-						"tableOption": "autoCreate"
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
 					},
-					"enableStaging": false
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "['id']"
+								},
+								"sink": {
+									"name": "id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['person']['name']"
+								},
+								"sink": {
+									"name": "name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['person']['lastname']"
+								},
+								"sink": {
+									"name": "lastname",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['person']['age']"
+								},
+								"sink": {
+									"name": "age",
+									"type": "Int16"
+								}
+							},
+							{
+								"source": {
+									"path": "['address']['country']"
+								},
+								"sink": {
+									"name": "country",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['address']['city']"
+								},
+								"sink": {
+									"name": "city",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['address']['postcode']"
+								},
+								"sink": {
+									"name": "postcode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['address']['street']"
+								},
+								"sink": {
+									"name": "street",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['address']['building']"
+								},
+								"sink": {
+									"name": "building",
+									"type": "String"
+								}
+							}
+						],
+						"collectionReference": "$['customers']['customer']"
+					}
 				},
 				"inputs": [
 					{
@@ -44,7 +132,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "SqlPoolTable1",
+						"referenceName": "AzureSynapseAnalyticsTable1",
 						"type": "DatasetReference"
 					}
 				]
