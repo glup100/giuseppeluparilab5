@@ -30,8 +30,7 @@
 					},
 					"sink": {
 						"type": "SqlDWSink",
-						"writeBehavior": "Insert",
-						"sqlWriterUseTableLock": false
+						"allowCopyCommand": true
 					},
 					"enableStaging": false
 				},
