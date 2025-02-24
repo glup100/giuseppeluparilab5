@@ -464,10 +464,10 @@
 								}
 							},
 							"sink": {
-								"type": "SqlDWSink",
+								"type": "SqlPoolSink",
 								"writeBehavior": "Insert",
-								"tableOption": "autoCreate",
-								"disableMetricsCollection": false
+								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate"
 							},
 							"enableStaging": false
 						},
@@ -475,18 +475,14 @@
 							{
 								"referenceName": "Xml1",
 								"type": "DatasetReference",
-								"parameters": {
-									"DBName": "lab6SQLpool"
-								}
+								"parameters": {}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "learnSQLpool",
+								"referenceName": "SqlPoolTable1",
 								"type": "DatasetReference",
-								"parameters": {
-									"DBName": "lab6SQLpool"
-								}
+								"parameters": {}
 							}
 						]
 					}
@@ -498,7 +494,28 @@
 			},
 			"dependsOn": [
 				"[concat(variables('workspaceId'), '/datasets/Xml1')]",
-				"[concat(variables('workspaceId'), '/datasets/learnSQLpool')]"
+				"[concat(variables('workspaceId'), '/datasets/SqlPoolTable1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/AzureSynapseAnalyticsTable1')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "giuseppeluparibda2025lab5-WorkspaceDefaultSqlServer",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "customer"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/giuseppeluparibda2025lab5-WorkspaceDefaultSqlServer')]"
 			]
 		},
 		{
@@ -580,6 +597,27 @@
 			},
 			"dependsOn": [
 				"[concat(variables('workspaceId'), '/linkedServices/WeatherService')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/SqlPoolTable1')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "SqlPoolTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "customers"
+				},
+				"sqlPool": {
+					"referenceName": "lab6SQLpool",
+					"type": "SqlPoolReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/sqlPools/lab6SQLpool')]"
 			]
 		},
 		{
@@ -787,12 +825,6 @@
 				"linkedServiceName": {
 					"referenceName": "sales_dataset",
 					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"DBName": {
-						"type": "string",
-						"defaultValue": "lab6SQLpool"
-					}
 				},
 				"annotations": [],
 				"type": "Xml",
