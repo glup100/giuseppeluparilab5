@@ -21,7 +21,14 @@
 					"name": "SaveDataToTable"
 				}
 			],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "SplitValue"
+				},
+				{
+					"name": "currencyConversion"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          id as string,",
@@ -34,7 +41,10 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     documentForm: 'documentPerLine') ~> source1",
-				"source1 sink(allowSchemaDrift: true,",
+				"source1 derive(value_decimal = toDecimal(dropLeft(value, 1), 16, 2),",
+				"          currency = left(value, 1)) ~> SplitValue",
+				"SplitValue derive(value_pounds = toDecimal(iif(currency == \"$\", value_decimal * 0.79, iif(currency == \"€\", value_decimal * 0.83, value_decimal)), 16, 2)) ~> currencyConversion",
+				"currencyConversion sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
 				"     insertable:true,",
