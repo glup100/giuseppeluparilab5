@@ -16,6 +16,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'sales_dataset'"
 		},
+		"synapse_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'synapse'"
+		},
 		"WeatherService_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://api.weather.gov/"
@@ -43,6 +47,10 @@
 		"sales_dataset_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://mdsynapse4321.dfs.core.windows.net/"
+		},
+		"synapse_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://giuseppelupari2025lab5.dfs.core.windows.net/"
 		},
 		"Trigger_4e5_properties_Weather_Pipeline_parameters_windowStart": {
 			"type": "string",
@@ -523,6 +531,59 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('workspaceName'), '/Ingest_orders')]",
+			"type": "Microsoft.Synapse/workspaces/pipelines",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"activities": [
+					{
+						"name": "Ingest_orders",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "IngestJson",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"source1": {},
+									"SaveDataToTable": {}
+								}
+							},
+							"staging": {
+								"linkedService": {
+									"referenceName": "synapse",
+									"type": "LinkedServiceReference"
+								},
+								"folderPath": "bronze"
+							},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/dataflows/IngestJson')]",
+				"[concat(variables('workspaceId'), '/linkedServices/synapse')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('workspaceName'), '/Weather_Pipeline')]",
 			"type": "Microsoft.Synapse/workspaces/pipelines",
 			"apiVersion": "2019-06-01-preview",
@@ -644,6 +705,27 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('workspaceName'), '/AzureSynapseAnalyticsTable3')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "customerSQLpool",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "orders"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/customerSQLpool')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('workspaceName'), '/DelimitedText1')]",
 			"type": "Microsoft.Synapse/workspaces/datasets",
 			"apiVersion": "2019-06-01-preview",
@@ -726,6 +808,49 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('workspaceName'), '/Json1')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "sales_dataset",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "sales/orders",
+						"fileSystem": "bronze"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "string"
+						},
+						"date": {
+							"type": "string"
+						},
+						"value": {
+							"type": "string"
+						},
+						"customer_id": {
+							"type": "string"
+						},
+						"product_id": {
+							"type": "string"
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/sales_dataset')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('workspaceName'), '/SourceDataset_4e5')]",
 			"type": "Microsoft.Synapse/workspaces/datasets",
 			"apiVersion": "2019-06-01-preview",
@@ -767,27 +892,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('workspaceId'), '/linkedServices/sales_dataset')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/SqlPoolTable1')]",
-			"type": "Microsoft.Synapse/workspaces/datasets",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"annotations": [],
-				"type": "SqlPoolTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "customers"
-				},
-				"sqlPool": {
-					"referenceName": "lab6SQLpool",
-					"type": "SqlPoolReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('workspaceId'), '/sqlPools/lab6SQLpool')]"
 			]
 		},
 		{
@@ -1344,6 +1448,29 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('workspaceName'), '/synapse')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('synapse_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('synapse_accountKey')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('workspaceName'), '/Flatten Forecast')]",
 			"type": "Microsoft.Synapse/workspaces/triggers",
 			"apiVersion": "2019-06-01-preview",
@@ -1467,6 +1594,74 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/IngestJson')]",
+			"type": "Microsoft.Synapse/workspaces/dataflows",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "Json1",
+								"type": "DatasetReference"
+							},
+							"name": "source1"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "AzureSynapseAnalyticsTable3",
+								"type": "DatasetReference"
+							},
+							"name": "SaveDataToTable"
+						}
+					],
+					"transformations": [
+						{
+							"name": "SplitValue"
+						},
+						{
+							"name": "currencyConversion"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          id as string,",
+						"          date as string,",
+						"          value as string,",
+						"          customer_id as string,",
+						"          product_id as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     documentForm: 'documentPerLine') ~> source1",
+						"source1 derive(value_decimal = toDecimal(dropLeft(value, 1), 16, 2),",
+						"          currency = left(value, 1)) ~> SplitValue",
+						"SplitValue derive(value_pounds = toDecimal(iif(currency == \"$\", value_decimal * 0.79, iif(currency == \"€\", value_decimal * 0.83, value_decimal)), 16, 2)) ~> currencyConversion",
+						"currencyConversion sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     staged: true,",
+						"     allowCopyCommand: true,",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> SaveDataToTable"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/datasets/Json1')]",
+				"[concat(variables('workspaceId'), '/datasets/AzureSynapseAnalyticsTable3')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('workspaceName'), '/WorkspaceSystemIdentity')]",
