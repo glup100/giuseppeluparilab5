@@ -19,6 +19,13 @@
 						"referenceName": "IngestJson",
 						"type": "DataFlowReference"
 					},
+					"staging": {
+						"linkedService": {
+							"referenceName": "synapse",
+							"type": "LinkedServiceReference"
+						},
+						"folderPath": "bronze"
+					},
 					"compute": {
 						"coreCount": 8,
 						"computeType": "General"
