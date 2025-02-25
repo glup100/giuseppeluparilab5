@@ -1,0 +1,38 @@
+{
+	"name": "Json1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "sales_dataset",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "sales/orders",
+				"fileSystem": "bronze"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"date": {
+					"type": "string"
+				},
+				"value": {
+					"type": "string"
+				},
+				"customer_id": {
+					"type": "string"
+				},
+				"product_id": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}
