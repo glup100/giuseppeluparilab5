@@ -2,13 +2,13 @@
 	"name": "SQL script 1",
 	"properties": {
 		"content": {
-			"query": "SELECT s.name AS schema_name\nFROM sys.schemas s\nORDER BY s.name;\n\n\n",
+			"query": "SELECT * FROM dbo.orders;\n\n\n",
 			"metadata": {
 				"language": "sql"
 			},
 			"currentConnection": {
-				"databaseName": "master",
-				"poolName": "Built-in"
+				"databaseName": "lab6SQLpool",
+				"poolName": "lab6SQLpool"
 			},
 			"resultLimit": 5000
 		},
